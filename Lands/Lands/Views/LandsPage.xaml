@@ -6,7 +6,7 @@
              x:Class="Lands.Views.LandsPage"
              BindingContext="{Binding Main, Source={StaticResource Locator}}" Title="Lands">
     <ContentPage.Content>
-        <StackLayout Padding="5">
+        <StackLayout BindingContext="{Binding Lands}" Padding="5">
             <Label Text="Welcome to Xamarin.Forms!"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
