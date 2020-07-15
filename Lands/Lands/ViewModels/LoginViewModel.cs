@@ -3,21 +3,79 @@
     using GalaSoft.MvvmLight.Command;
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.Text;
     using System.Windows.Input;
     using Xamarin.Forms;
 
-    public class LoginViewModel
+    public class LoginViewModel : BaseViewModel
     {
+        //public event PropertyChangedEventHandler PropertyChanged;
+
+        #region Attributes
+        private string password;
+        private bool isRunning;
+        private bool isEnabled;
+        #endregion
+
+        #region Properties
         public string Email { get; set; }
 
-        public string Password { get; set; }
+        public string Password
+        {
+            get
+            {
+                return password;
+            }
+            set
+            {
+                SetValue(ref password, value);
+            }
+        }
 
-        public bool IsRunning { get; set; }
+        public bool IsRunning
+        {
+            get
+            {
+                return isRunning;
+            }
+            set
+            {
+                SetValue(ref isRunning, value);
+            }
+        }
+
+        public bool IsEnabled
+        {
+            get
+            {
+                return isEnabled;
+            }
+            set
+            {
+                SetValue(ref isEnabled, value);
+                //if (this.isEnabled != value)
+                //{
+                //    this.isEnabled = value;
+                //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.IsEnabled)));
+                //}
+            }
+        }
 
         public bool IsRemembered { get; set; }
+        #endregion
 
-        public ICommand LoginCommand {
+        #region Constructor
+        public LoginViewModel()
+        {
+            this.IsRemembered = true;
+            this.isEnabled = true;
+        }
+        #endregion
+
+        #region Commands
+        public ICommand LoginCommand
+        {
             get
             {
                 return new RelayCommand(Login);
@@ -29,8 +87,8 @@
             if (string.IsNullOrEmpty(this.Email))
             {
                 await Application.Current.MainPage.DisplayAlert(
-                    "Error", 
-                    "you must enter an email", 
+                    "Error",
+                    "you must enter an email",
                     "Acept");
                 return;
             }
@@ -43,11 +101,30 @@
                     "Acept");
                 return;
             }
-        }
 
-        public LoginViewModel()
-        {
-            this.IsRemembered = true;
+            this.IsRunning = true;
+            this.IsEnabled = false;
+
+            if (this.Email != "enrique.loyola@gmail.com" || this.Password != "1234")
+            {
+                this.IsRunning = false;
+                this.IsEnabled = true;
+                await Application.Current.MainPage.DisplayAlert(
+                    "Error",
+                    "Email or password incorrect",
+                    "Acept");
+                this.Password = string.Empty;
+                return;
+            }
+
+            this.IsRunning = false;
+            this.IsEnabled = true;
+            await Application.Current.MainPage.DisplayAlert(
+                    "Ok",
+                    "Accepted",
+                    "Acept");
+            return;
         }
+        #endregion
     }
 }
