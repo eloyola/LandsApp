@@ -96,6 +96,10 @@
 
         private async void Login()
         {
+            this.Email = "enrique.loyola@gmail.com";
+            this.Password = "1234";
+
+
             if (string.IsNullOrEmpty(this.Email))
             {
                 await Application.Current.MainPage.DisplayAlert(
@@ -117,6 +121,7 @@
             this.IsRunning = true;
             this.IsEnabled = false;
 
+            
             if (this.Email != "enrique.loyola@gmail.com" || this.Password != "1234")
             {
                 this.IsRunning = false;

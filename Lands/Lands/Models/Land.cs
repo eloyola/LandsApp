@@ -36,16 +36,16 @@ namespace Lands.Models
         public int Population { get; set; }
 
         [JsonProperty(PropertyName = "latlng")]
-        public List<int> latlng { get; set; }
+        public List<double> latlng { get; set; }
 
         [JsonProperty(PropertyName = "demonym")]
         public string Demonym { get; set; }
 
         [JsonProperty(PropertyName = "area")]
-        public int Area { get; set; }
+        public double? Area { get; set; }
 
         [JsonProperty(PropertyName = "gini")]
-        public float Gini { get; set; }
+        public float? Gini { get; set; }
 
         [JsonProperty(PropertyName = "timezones")]
         public List<string> Timezones { get; set; }
