@@ -1,10 +1,8 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Lands.Infrastucture
+﻿namespace Lands.Models
 {
+    using System;
+    using Newtonsoft.Json;
+
     public class TokenResponse
     {
         #region Properties

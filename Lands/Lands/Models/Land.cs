@@ -1,8 +1,8 @@
-﻿using Newtonsoft.Json;
-using System.Collections.Generic;
-
-namespace Lands.Models
+﻿namespace Lands.Models
 {
+    using System.Collections.Generic;
+    using Newtonsoft.Json;
+
     public class Land
     {
         [JsonProperty(PropertyName = "name")]
@@ -36,7 +36,7 @@ namespace Lands.Models
         public int Population { get; set; }
 
         [JsonProperty(PropertyName = "latlng")]
-        public List<double> latlng { get; set; }
+        public List<double> Latlng { get; set; }
 
         [JsonProperty(PropertyName = "demonym")]
         public string Demonym { get; set; }
@@ -45,7 +45,7 @@ namespace Lands.Models
         public double? Area { get; set; }
 
         [JsonProperty(PropertyName = "gini")]
-        public float? Gini { get; set; }
+        public double? Gini { get; set; }
 
         [JsonProperty(PropertyName = "timezones")]
         public List<string> Timezones { get; set; }
@@ -72,7 +72,7 @@ namespace Lands.Models
         public string Flag { get; set; }
 
         [JsonProperty(PropertyName = "regionalBlocs")]
-        public List<Regionalbloc> RegionalBlocs { get; set; }
+        public List<RegionalBloc> RegionalBlocs { get; set; }
 
         [JsonProperty(PropertyName = "cioc")]
         public string Cioc { get; set; }

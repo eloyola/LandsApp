@@ -1,12 +1,10 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Text;
-
-namespace Lands.Models
+﻿namespace Lands.Models
 {
+    using Newtonsoft.Json;
+
     public class Currency
     {
-        [JsonProperty(PropertyName ="code")]
+        [JsonProperty(PropertyName = "code")]
         public string Code { get; set; }
 
         [JsonProperty(PropertyName = "name")]

@@ -1,7 +1,7 @@
-﻿using Newtonsoft.Json;
-
-namespace Lands.Models
+﻿namespace Lands.Models
 {
+    using Newtonsoft.Json;
+
     public class Language
     {
         [JsonProperty(PropertyName = "iso639_1")]
@@ -16,5 +16,4 @@ namespace Lands.Models
         [JsonProperty(PropertyName = "nativeName")]
         public string NativeName { get; set; }
     }
-
 }
