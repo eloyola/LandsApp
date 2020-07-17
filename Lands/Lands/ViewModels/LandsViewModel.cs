@@ -148,18 +148,18 @@
 
         private void Search()
         {
-            //if (string.IsNullOrEmpty(this.Filter))
-            //{
-            //    this.Lands = new ObservableCollection<LandItemViewModel>(
-            //        this.ToLandItemViewModel());
-            //}
-            //else
-            //{
-            //    this.Lands = new ObservableCollection<LandItemViewModel>(
-            //        this.ToLandItemViewModel().Where(
-            //            l => l.Name.ToLower().Contains(this.Filter.ToLower()) ||
-            //                 l.Capital.ToLower().Contains(this.Filter.ToLower())));
-            //}
+            if (string.IsNullOrEmpty(this.Filter))
+            {
+                this.Lands = new ObservableCollection<Land>(
+                    this.ToLandItemViewModel());
+            }
+            else
+            {
+                this.Lands = new ObservableCollection<Land>(
+                    this.ToLandItemViewModel().Where(
+                        l => l.Name.ToLower().Contains(this.Filter.ToLower()) ||
+                             l.Capital.ToLower().Contains(this.Filter.ToLower())));
+            }
         }
         #endregion
     }
