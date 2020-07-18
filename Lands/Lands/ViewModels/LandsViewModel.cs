@@ -1,9 +1,7 @@
 ﻿namespace Lands.ViewModels
 {
     using GalaSoft.MvvmLight.Command;
-    using Models;
     using Services;
-    using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Linq;
@@ -17,14 +15,14 @@
         #endregion
 
         #region Attributes
-        private ObservableCollection<Land> lands;
+        private ObservableCollection<LandItemViewModel> lands;
         private bool isRefreshing;
         private string filter;
-        private List<Land> landsList;
+        private List<LandItemViewModel> landsList;
         #endregion
 
         #region Properties
-        public ObservableCollection<Land> Lands
+        public ObservableCollection<LandItemViewModel> Lands
         {
             get { return this.lands; }
             set { SetValue(ref this.lands, value); }
@@ -55,6 +53,40 @@
         }
         #endregion
 
+        #region Commands
+        public ICommand RefreshCommand
+        {
+            get
+            {
+                return new RelayCommand(LoadLands);
+            }
+        }
+
+        public ICommand SearchCommand
+        {
+            get
+            {
+                return new RelayCommand(Search);
+            }
+        }
+
+        private void Search()
+        {
+            if (string.IsNullOrEmpty(this.Filter))
+            {
+                this.Lands = new ObservableCollection<LandItemViewModel>(
+                    this.ToLandItemViewModel());
+            }
+            else
+            {
+                this.Lands = new ObservableCollection<LandItemViewModel>(
+                    this.ToLandItemViewModel().Where(
+                        l => l.Name.ToLower().Contains(this.Filter.ToLower()) ||
+                             l.Capital.ToLower().Contains(this.Filter.ToLower())));
+            }
+        }
+        #endregion
+
         #region Methods
         private async void LoadLands()
         {
@@ -72,31 +104,28 @@
                 return;
             }
 
-            var response = await this.apiService.GetList<Land>(
+            var response = await this.apiService.GetList<LandItemViewModel>(
                 "http://restcountries.eu",
-                "/rest", 
+                "/rest",
                 "/v2/all");
 
             if (!response.IsSuccess)
             {
                 this.IsRefreshing = false;
                 await Application.Current.MainPage.DisplayAlert(
-                    "Error", 
-                    response.Message, 
+                    "Error",
+                    response.Message,
                     "Accept");
                 await Application.Current.MainPage.Navigation.PopAsync();
                 return;
             }
 
-            this.landsList = (List<Land>)response.Result;
-            //this.Lands = new ObservableCollection<LandItemViewModel>(
-            //    this.ToLandItemViewModel());
-            this.Lands = new ObservableCollection<Land>(this.landsList);
+            this.landsList = (List<LandItemViewModel>)response.Result;
+            this.Lands = new ObservableCollection<LandItemViewModel>(
+                this.ToLandItemViewModel());
             this.IsRefreshing = false;
         }
-        #endregion
 
-        #region Methods
         private IEnumerable<LandItemViewModel> ToLandItemViewModel()
         {
             return this.landsList.Select(l => new LandItemViewModel
@@ -128,39 +157,6 @@
             });
         }
 
-        #endregion
-        #region Commands
-        public ICommand RefreshCommand
-        {
-            get
-            {
-                return new RelayCommand(LoadLands);
-            }
-        }
-
-        public ICommand SearchCommand
-        {
-            get
-            {
-                return new RelayCommand(Search);
-            }
-        }
-
-        private void Search()
-        {
-            if (string.IsNullOrEmpty(this.Filter))
-            {
-                this.Lands = new ObservableCollection<Land>(
-                    this.ToLandItemViewModel());
-            }
-            else
-            {
-                this.Lands = new ObservableCollection<Land>(
-                    this.ToLandItemViewModel().Where(
-                        l => l.Name.ToLower().Contains(this.Filter.ToLower()) ||
-                             l.Capital.ToLower().Contains(this.Filter.ToLower())));
-            }
-        }
         #endregion
     }
 }
