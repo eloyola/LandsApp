@@ -8,19 +8,49 @@
     public class LandViewModel : BaseViewModel
     {
         private ObservableCollection<Border> borders;
-
+        private ObservableCollection<Currency> currencies;
+        private ObservableCollection<Language> languages;
+        private Translations translations;
         #region Propperties
         public Land Land
         {
             get;
             set;
         }
+
         public ObservableCollection<Border> Borders
         {
             get => borders;
             set
             {
                 SetValue(ref this.borders, value);
+            }
+        }
+
+        public ObservableCollection<Currency> Currencies
+        {
+            get => currencies;
+            set
+            {
+                SetValue(ref this.currencies, value);
+            }
+        }
+
+        public ObservableCollection<Language> Languages
+        {
+            get => languages;
+            set
+            {
+                SetValue(ref this.languages, value);
+            }
+        }
+
+        public Translations Translations
+        {
+            get => translations;
+            set
+            {
+                SetValue(ref this.translations, value);
             }
         }
         #endregion
@@ -30,6 +60,9 @@
         {
             this.Land = land;
             LoadBorders();
+            this.currencies = new ObservableCollection<Currency>(this.Land.Currencies);
+            this.languages = new ObservableCollection<Language>(this.Land.Languages);
+            this.translations = this.Land.Translations;
         }
         #endregion
 
