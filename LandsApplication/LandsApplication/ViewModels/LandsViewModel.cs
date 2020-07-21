@@ -1,6 +1,7 @@
 ﻿namespace LandsApplication.ViewModels
 {
     using GalaSoft.MvvmLight.Command;
+    using LandsApplication.Helpers;
     using LandsApplication.Models;
     using Services;
     using System.Collections.Generic;
@@ -97,9 +98,9 @@
             {
                 this.IsRefreshing = false;
                 await Application.Current.MainPage.DisplayAlert(
-                    "Error",
+                    Languages.Error,
                     connection.Message,
-                    "Accept");
+                    Languages.Accept);
                 await Application.Current.MainPage.Navigation.PopAsync();
                 return;
             }
@@ -113,9 +114,9 @@
             {
                 this.IsRefreshing = false;
                 await Application.Current.MainPage.DisplayAlert(
-                    "Error",
+                    Languages.Error,
                     response.Message,
-                    "Accept");
+                    Languages.Accept);
                 await Application.Current.MainPage.Navigation.PopAsync();
                 return;
             }
